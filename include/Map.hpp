@@ -18,16 +18,14 @@ class Map {
             mMapSize = new sf::Vector2f(width, height);
             mRenderPosition = new sf::Vector2f(0, 0);
             mSky.setFillColor(sf::Color::Cyan);
-            sf::Vector2f skySize(width, height/4 * 3);
-            mSky.setSize(skySize);
+            mSky.setSize({width, height/4 * 3});
             mSky.setPosition(mRenderPosition->x, mRenderPosition->y);
 
             prepareMap();
 
             mGround = new sf::RectangleShape();
             mGround->setFillColor(sf::Color::Green);
-             sf::Vector2f groundSize(width, height/4);
-            mGround->setSize(groundSize);
+            mGround->setSize({width, height/4});
             mGround->setPosition(mRenderPosition->x, mRenderPosition->y + (mMapSize->y/4 * 3));
             mManager->addWall(mGround);
         }

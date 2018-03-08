@@ -16,10 +16,7 @@ void Map::setPosition(float x, float y) {
 }
 
 sf::Vector2f Map::getStartPosition() {
-    float startX = mRenderPosition->x + 20;
-    float startY = mMapSize->y/4 * 3;
-    sf::Vector2f result(startX, startY);
-    return result;
+    return {mRenderPosition->x + 20, mMapSize->y/4 * 3};
 }
 
 void Map::prepareMap() {

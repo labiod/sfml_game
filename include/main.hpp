@@ -30,7 +30,7 @@ class Game {
         GameManager* mManager;
     public:
         Game(GameManager* manager) 
-            :mWindow(sf::VideoMode(800, 600), APP_TITLE)
+            :mWindow({WINDOW_WIDTH, WINDOW_HEIGHT}, APP_TITLE)
             ,mColor(sf::Color::Black)
             ,mFont()
             ,mPlayerPoints()
@@ -38,9 +38,7 @@ class Game {
             ,mPlayer(manager, DEFAULT_PLAYER_SIZE, DEFAULT_PLAYER_SPEED)
         {   
             mManager = manager;
-            sf::Vector2f gravityPoint(0, WINDOW_HEIGHT);
-            sf::Vector2f gravityVector(0, 9.f);
-            mManager->setGravity(gravityPoint, gravityVector);
+            mManager->setGravity({0, WINDOW_HEIGHT}, {0, 9.f});
             mTimePerFrame = sf::seconds(1.f / FPS);
             mFont.loadFromFile("font/Sansation.ttf");
             mPlayerPoints.setFont(mFont);
