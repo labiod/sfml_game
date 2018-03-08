@@ -11,3 +11,7 @@ bool GameManager::hitTest(sf::FloatRect& bounds) {
     }
     return false;
 }
+
+void GameManager::pullObject(GravityObject& obj) {
+    obj.moveToDirection(mGravityPoint, mGravityVector);
+}

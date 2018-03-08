@@ -3,29 +3,21 @@
 
 #include <SFML/Graphics.hpp>
 #include "GameManager.hpp"
+#include "GravityObject.hpp"
 
-class Player {
+class Player : public GravityObject {
         sf::CircleShape mPlayerShape;
         int mJumpValue;
-        int mJumpTo;
-        int mStep;
+        int mJumpStep;
+        int mFullJump;
+        bool mJumping;
         bool mIsMovingLeft;
         bool mIsMovingRight;
         float mPlayerSpeed;
         float mCachePositionY;
         GameManager* mGameManager;
     public:
-        Player(GameManager* gameManager, float size, int playerSpeed): mPlayerShape(size/2) 
-        {
-            mPlayerSpeed = playerSpeed;
-            mIsMovingLeft = false;
-            mIsMovingRight = false;
-            mJumpValue = 0;
-            mJumpTo = 0;
-            mStep = 2;
-            mCachePositionY = mPlayerShape.getPosition().y;
-            mGameManager = gameManager;
-        }
+        Player(GameManager* gameManager, float size, int playerSpeed);
 
         void setPlayerColor(sf::Color& color) {
             mPlayerShape.setFillColor(color);
@@ -61,6 +53,8 @@ class Player {
         }
 
         void nextJumpValue();
+
+        void moveToDirection(sf::Vector2f point, sf::Vector2f vector) override;
 };
 
 #endif // PLAYER_HPP

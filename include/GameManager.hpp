@@ -3,24 +3,30 @@
 
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include "GravityObject.hpp"
 
 /** 
  * CONSTANT SECTION
  */ 
 #define TAG "[KGB]"
-#define FPS 60.f
-#define APP_TITLE "SFML first App"
-#define DEFAULT_PLAYER_SPEED 50.f
-#define DEFAULT_PLAYER_SIZE 20.f
 
 class GameManager {
         std::vector<sf::Shape*> mHitBounds;
+        sf::Vector2f mGravityPoint;
+        sf::Vector2f mGravityVector;
     public:
-        GameManager() : mHitBounds() {
+        GameManager() : mHitBounds(), mGravityPoint(0, 0), mGravityVector(0, 0) {
         }
 
         void addWall(sf::Shape* hitBounds);
         bool hitTest(sf::FloatRect& bounds);
+
+        void setGravity(sf::Vector2f gravityPoint, sf::Vector2f gravityVector) {
+            mGravityPoint = gravityPoint;
+            mGravityVector = gravityVector;
+        }
+
+        void pullObject(GravityObject& obj);
 };
 
 #endif //GAME_MANAGER_HPP

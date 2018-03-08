@@ -12,8 +12,10 @@
 #define TAG "[KGB]"
 #define FPS 60.f
 #define APP_TITLE "SFML first App"
-#define DEFAULT_PLAYER_SPEED 50.f
+#define DEFAULT_PLAYER_SPEED 100.f
 #define DEFAULT_PLAYER_SIZE 20.f
+#define WINDOW_WIDTH 800
+#define WINDOW_HEIGHT 600
 
 class Game {
     private:
@@ -24,7 +26,6 @@ class Game {
         sf::Font mFont;
         sf::Text mPlayerPoints;
         sf::Color mColor;
-        sf::Vector2f mGravity;
         float mGravityPoint;
         GameManager* mManager;
     public:
@@ -33,11 +34,13 @@ class Game {
             ,mColor(sf::Color::Black)
             ,mFont()
             ,mPlayerPoints()
-            ,mGravity(0.f, 5.f)
-            ,mMap(manager, 800, 600)
+            ,mMap(manager, WINDOW_WIDTH, WINDOW_HEIGHT)
             ,mPlayer(manager, DEFAULT_PLAYER_SIZE, DEFAULT_PLAYER_SPEED)
         {   
             mManager = manager;
+            sf::Vector2f gravityPoint(0, WINDOW_HEIGHT);
+            sf::Vector2f gravityVector(0, 9.f);
+            mManager->setGravity(gravityPoint, gravityVector);
             mTimePerFrame = sf::seconds(1.f / FPS);
             mFont.loadFromFile("font/Sansation.ttf");
             mPlayerPoints.setFont(mFont);
@@ -57,7 +60,7 @@ class Game {
             mPlayer.setPlayerColor(mColor);
             sf::Vector2f startPos = mMap.getStartPosition();
             Log::d(TAG, "run: startPosition: x = %.2f; y = %.2f", startPos.x, startPos.y);
-            mPlayer.setPosition(startPos.x, startPos.y - 20);
+            mPlayer.setPosition(startPos.x, startPos.y - 80);
 
             while (mWindow.isOpen())
             {      
@@ -123,6 +126,8 @@ class Game {
         {
             mPlayer.update(deltaTime);
             mPlayer.setPlayerColor(mColor);
+            mManager->pullObject(mPlayer);
+            
         }
 
         sf::Color nextColor(bool isPressed) {
