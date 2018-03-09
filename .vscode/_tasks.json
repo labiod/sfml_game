@@ -8,10 +8,10 @@
             "type": "shell",
             "command": "g++",
             "args": [
-                "-std=c++11",
                 "-c",
-                "main.cpp",
-                "-o build/main.o"
+                "-I./include",
+                "source/*",
+                "-std=c++11"
             ],
             "problemMatcher": [
                 "$gcc"
@@ -26,9 +26,9 @@
             "type": "shell",
             "command": "g++",
             "args": [
-                "build/main.o",
+                "*.o",
                 "-o",
-                "build/game",
+                "sfml-app",
                 "-lsfml-graphics",
                 "-lsfml-window",
                 "-lsfml-system"
@@ -47,7 +47,7 @@
         {
             "label": "Run",
             "type": "shell",
-            "command": "./build/game",
+            "command": "./sfml-app ",
             "dependsOn": [
                 "linker"
             ],
